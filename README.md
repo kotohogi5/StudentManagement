@@ -1,2 +1,0 @@
-# RaiseTech_Java
-RaisetechのJavaコース
