@@ -15,13 +15,13 @@ public class Application {
 	private String name = "Goto Miyako";
 	private String age = "20";
 	//name,age
-	private Map<String,String> student;
+	private Map<String,String> studentMap;
 
  //コンストラクタ
 	public Application(){
 		this.name = name;
 		this.age = age;
-		this.student = new HashMap<>();
+		this.studentMap = new HashMap<>();
 	}
 
 	public static void main(String[] args)
@@ -37,7 +37,7 @@ public class Application {
 
 	@GetMapping("/displayStudentInfoMap")
 	public Map<String,String> displayStudentInfo(){
-		return this.student;
+		return this.studentMap;
 	}
 
 	//生徒情報の登録
@@ -49,7 +49,7 @@ public class Application {
 
 	@PostMapping("/setStudentInfoMap")
 	public void setStudentInfoMap(String name,String age){
-		this.student.put(name,age);
+		this.studentMap.put(name,age);
 	}
 
 	//生徒情報の一部修正
@@ -65,23 +65,23 @@ public class Application {
 
 	@PostMapping("/updateStudentNameMap")
 	public void updateStudentNameMap(String oldName,String newName){
-		if(this.student.containsKey(oldName)){
+		if(this.studentMap.containsKey(oldName)){
 
 			//年齢情報を取得
-			String age = this.student.get(oldName);
+			String age = this.studentMap.get(oldName);
 
 			//最新情報（newName,age)に更新
-			this.student.put(newName,age);
+			this.studentMap.put(newName,age);
 
 			//古い情報（oldName,age)を削除
-			this.student.remove(oldName);
+			this.studentMap.remove(oldName);
 
 		}
 	}
 	@PostMapping("/updateStudentAgeMap")
 	public void updateStudentAgeMap(String name,String newAge){
-		if(this.student.containsKey(name)){
-			this.student.put(name,newAge);
+		if(this.studentMap.containsKey(name)){
+			this.studentMap.put(name,newAge);
 		}
 	}
 
