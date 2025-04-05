@@ -22,33 +22,9 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-
-	//【第20回課題】すべての生徒情報を表示する
-	@GetMapping("/student")
-	public List<Student> searchAllStudentInfo(){
+	@GetMapping("/students")
+	public List<Student> searchStudentInfo(){
 		return repository.searchAllStudentInfo();
-}
-
-
-	//生徒情報の登録する
-	@PostMapping("/student")
-	public void registerStudentInfo(String name,int age){
-		repository.registerStudentInfo(name,age);
 	}
-
-	
-	//生徒の年齢を修正する
-	@PatchMapping("/student")
-	public void updateStudentAge(String name , int age){
-		repository.updateStudentAge(name,age);
-	}
-
-
-	//生徒情報を削除する
-	@DeleteMapping("/student")
-	public void deleteStudentInfo(String name){
-		repository.deleteStudentInfo(name);
-	}
-
 
 }
