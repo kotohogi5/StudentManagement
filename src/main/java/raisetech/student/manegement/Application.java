@@ -22,9 +22,15 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	@GetMapping("/students")
+	@GetMapping("/student")
 	public List<Student> searchStudentInfo(){
 		return repository.searchAllStudentInfo();
 	}
+
+	@GetMapping("/course")
+	public List<Course> searchCourseInfo(){
+		return repository.searchAllCourseInfo();
+	}
+
 
 }
