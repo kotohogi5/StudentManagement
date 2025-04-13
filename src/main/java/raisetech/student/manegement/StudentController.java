@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import raisetech.student.manegement.repository.StudentRepository;
 
 @RestController
 public class StudentController {
@@ -29,10 +29,10 @@ public class StudentController {
     return service.searchCourseList();
   }
 
-  //【課題24】30代の生徒情報をフィルタリングしてから出力するようリクエスト/レスポンスする
-  @GetMapping("/studentAge30To39")
-  public Map<String,Student> searchStudentAge30To39(){
-    return service.searchStudentAge30To39();
+  //【課題24】生徒情報を年齢でフィルタリングしてから出力するようリクエスト/レスポンスする
+  @GetMapping("/studentAge")
+  public Map<String,Student> searchStudentAge(@RequestParam(name="minAge") int minAge,@RequestParam(name="maxAge") int maxAge){
+    return service.searchStudentAge(minAge,maxAge);
   }
 
 }

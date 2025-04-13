@@ -28,15 +28,15 @@ public class StudentService {
     return repository.seachCourseList();
   }
 
-  //【課題24】30代の生徒情報だけをフィルタリングしてコントローラーへ返す
-  public Map<String,Student> searchStudentAge30To39(){
+  //【課題24】指定した年齢範囲の生徒情報だけをフィルタリングしてコントローラーへ返す
+  public Map<String,Student> searchStudentAge(int minAge,int maxAge){
 
     //全生徒情報をリポジトリ層（DB）から取得する
     List<Student> studentList = repository.seachStudentList();
 
-    //フィルタリングした30代の生徒情報を返す
+    //指定した年齢範囲の生徒情報をフィルタリングして返す
     return studentList.stream()
-        .filter(student -> student.getAge() >= 30 && student.getAge() < 40)
+        .filter(student -> student.getAge() >= minAge && student.getAge() <= maxAge)
         .collect(Collectors.toMap(Student::getId,Function.identity()));
   }
 }
