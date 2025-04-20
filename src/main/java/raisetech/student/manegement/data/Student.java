@@ -1,7 +1,12 @@
-package raisetech.student.manegement;
+package raisetech.student.manegement.data;
 
 import lombok.Getter;
 import lombok.Setter;
+
+/*
+* 生徒情報を保持するクラス
+* 概要：DBに登録された、生徒情報一覧を保持
+ */
 
 @Getter
 @Setter
@@ -15,5 +20,7 @@ public class Student {
   private String area;
   private int age;
   private String gender;
+  private String remark; //備考欄
+  private boolean isDeleted; //自動的にfalse(0)がマッピング
 }
 
