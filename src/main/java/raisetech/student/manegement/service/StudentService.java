@@ -1,8 +1,6 @@
 package raisetech.student.manegement.service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,24 +19,21 @@ public class StudentService {
   }
 
   //全生徒情報をコントローラーへ返す
-  public List<Student> searchStudentList(){
-    return repository.seachStudentList();
+  public List<Student> searchStudents(){
+    return repository.seachStudents();
   }
 
   //全コース情報をコントローラーへ返す
-  public List<Course> searchCourseList(){
-    return repository.seachCourseList();
+  public List<Course> searchCourses(){
+    return repository.seachCourses();
   }
 
   //指定した年齢範囲の生徒情報だけをフィルタリングしてコントローラーへ返す
-  public Map<String,Student> searchStudentAge(int minAge,int maxAge){
+  public List<Student> searchStudentsByAge(Integer minAge,Integer maxAge){
 
     //全生徒情報をリポジトリ層（DB）から取得する
-    List<Student> studentList = repository.seachStudentList();
-
-    //指定した年齢範囲の生徒情報をフィルタリングして返す
-    return studentList.stream()
+    return repository.seachStudents().stream()
         .filter(student -> student.getAge() >= minAge && student.getAge() <= maxAge)
-        .collect(Collectors.toMap(Student::getId,Function.identity()));
+        .collect(Collectors.toList());
   }
 }
