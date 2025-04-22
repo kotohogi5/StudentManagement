@@ -1,7 +1,6 @@
 package raisetech.student.manegement.controller;
 
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,23 +23,17 @@ public class StudentController {
     this.converter = converter;
   }
 
-  //全生徒情報を出力するようリクエスト/レスポンスする
+  //生徒情報+受講コース情報を出力するようリクエスト/レスポンスする
   @GetMapping("/students")
   public List<StudentDetail> searchStudents(@RequestParam(name="minAge",required = false) Integer minAge,
       @RequestParam(name="maxAge",required = false) Integer maxAge){
 
-    //生徒情報を格納するリスト
-    List<Student> students;
+    //条件に応じた生徒情報を格納するリスト
+    List<Student> students = service.searchStudentsByAge(minAge,maxAge);
+    //全コース情報を格納するリスト
+    List<Course> courses = service.searchAllCourses();
 
-    //パラメータに年齢指定がある場合は条件検索を、なければ全件検索を行い、生徒情報リストに格納する
-    if(minAge != null && maxAge != null){
-      students = service.searchStudentsByAge(minAge,maxAge);
-    }else{
-      students = service.searchStudents();
-    }
-    //全コース情報をリストに取得
-    List<Course> courses = service.searchCourses();
-    //生徒情報とコース情報のコンバート処理へ
+    //生徒情報とコース情報のコンバートへ
     return converter.getStudentDetails(students, courses);
   }
 

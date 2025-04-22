@@ -19,21 +19,29 @@ public class StudentService {
   }
 
   //全生徒情報をコントローラーへ返す
-  public List<Student> searchStudents(){
+  public List<Student> searchAllStudents() {
     return repository.seachStudents();
   }
 
   //全コース情報をコントローラーへ返す
-  public List<Course> searchCourses(){
+  public List<Course> searchAllCourses() {
     return repository.seachCourses();
   }
 
-  //指定した年齢範囲の生徒情報だけをフィルタリングしてコントローラーへ返す
-  public List<Student> searchStudentsByAge(Integer minAge,Integer maxAge){
+  //パラメータに年齢指定がある場合は条件検索を、なければ全件検索を行い、生徒情報リストをコントローラーへ返す
+  public List<Student> searchStudentsByAge(Integer minAge, Integer maxAge) {
 
-    //全生徒情報をリポジトリ層（DB）から取得する
-    return repository.seachStudents().stream()
-        .filter(student -> student.getAge() >= minAge && student.getAge() <= maxAge)
-        .collect(Collectors.toList());
+    //生徒情報の格納リスト
+    List<Student> students;
+
+    //リクエストが条件検索か全件検索か
+    if (minAge != null && maxAge != null) {
+      students = repository.seachStudents().stream()
+          .filter(student -> student.getAge() >= minAge && student.getAge() <= maxAge)
+          .collect(Collectors.toList());
+    } else {
+      students = searchAllStudents();
+    }
+    return students;
   }
 }
