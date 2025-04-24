@@ -4,18 +4,18 @@ package raisetech.student.manegement.repository;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import raisetech.student.manegement.Course;
-import raisetech.student.manegement.Student;
+import raisetech.student.manegement.data.Course;
+import raisetech.student.manegement.data.Student;
 
 @Mapper
 //データベースを操作するクラス
 public interface StudentRepository {
 
   @Select("SELECT * FROM students")
-  List<Student> seachStudentList();
+  List<Student> seachStudents();
 
   @Select("SELECT * FROM students_courses")
-  List<Course> seachCourseList();
+  List<Course> seachCourses();
 
 
 }

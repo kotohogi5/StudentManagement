@@ -1,10 +1,13 @@
-package raisetech.student.manegement;
+package raisetech.student.manegement.data;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
+
+/*
+* 生徒が受講中のコース情報を保持するクラス
+* 概要：DBに登録された、生徒と紐づく受講コース一覧を保持
+ */
 
 @Getter
 @Setter
