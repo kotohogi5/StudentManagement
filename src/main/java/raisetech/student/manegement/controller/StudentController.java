@@ -9,17 +9,20 @@ import raisetech.student.manegement.controller.converter.StudentConverter;
 import raisetech.student.manegement.data.Course;
 import raisetech.student.manegement.data.Student;
 import raisetech.student.manegement.domain.StudentDetail;
+import raisetech.student.manegement.service.CourseService;
 import raisetech.student.manegement.service.StudentService;
 
 @RestController
 public class StudentController {
 
-  private StudentService service;
-  private StudentConverter converter;
+  private final StudentService studentService;
+  private final CourseService courseService;
+  private final StudentConverter converter;
 
   @Autowired
-  public StudentController(StudentService service,StudentConverter converter) {
-    this.service = service;
+  public StudentController(StudentService studentService,CourseService courseService, StudentConverter converter) {
+    this.studentService = studentService;
+    this.courseService = courseService;
     this.converter = converter;
   }
 
@@ -29,9 +32,9 @@ public class StudentController {
       @RequestParam(name="maxAge",required = false) Integer maxAge){
 
     //条件に応じた生徒情報を格納するリスト
-    List<Student> students = service.searchStudentsByAge(minAge,maxAge);
+    List<Student> students = studentService.searchStudentsByAge(minAge,maxAge);
     //全コース情報を格納するリスト
-    List<Course> courses = service.searchAllCourses();
+    List<Course> courses = courseService.searchAllCourses();
 
     //生徒情報とコース情報のコンバートへ
     return converter.getStudentDetails(students, courses);
