@@ -7,16 +7,28 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import raisetech.student.manegement.data.Student;
 
+/**
+ * 生徒情報に関するデータアクセスを提供するリポジトリインターフェース
+ * 概要：studentsテーブルへのクエリを定義する
+ */
+//生徒情報用リポジトリ
 @Mapper
-//データベースを操作するクラス
 public interface StudentRepository {
 
-  //すべての生徒情報を取得
+  /**
+   * すべての生徒情報を取得するリポジトリメソッド
+   * @return 全生徒情報のリスト
+   */
   @Select("SELECT * FROM students")
   List<Student> searchAllStudents();
 
-  //指定した年齢範囲の生徒情報を取得
-  @Select("SELECT * FROM students WHERE age BETWEEN #{minAge} AND #{maxAge}")
+
+  /**
+   * 指定した年齢範囲で生徒情報を取得するリポジトリメソッド
+   * @param minAge 最小年齢（を含む）
+   * @param maxAge 最大年齢（を含む）
+   * @return 指定年齢範囲に該当する生徒情報のリスト
+   */  @Select("SELECT * FROM students WHERE age BETWEEN #{minAge} AND #{maxAge}")
   List<Student> searchStudentByAge(@Param("minAge") Integer minAge,@Param("maxAge") Integer maxAge);
 
 

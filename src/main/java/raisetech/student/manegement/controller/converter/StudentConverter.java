@@ -1,40 +1,89 @@
 package raisetech.student.manegement.controller.converter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import raisetech.student.manegement.data.Course;
 import raisetech.student.manegement.data.Student;
 import raisetech.student.manegement.domain.StudentDetail;
 
-@Component
+/**
+ * 後処理用のコンバータークラス
+ * 概要：リクエスト内容に応じて渡されたデータの変換のみを行う（加工はしない）
+ */
+
+ @Component
 public class StudentConverter {
 
-  public List<StudentDetail> getStudentDetails(List<Student> students, List<Course> courses) {
+  /**
+   * フィルタリング済み生徒情報を起点にしたデータ結合を行う、コンバータークラスメソッド
+   * 概要：生徒情報リストとコース情報リストを基に、生徒ごとのコース情報を紐付けて返す
+   * @param students 処理対象の生徒リスト
+   * @param courses 全コース情報
+   * @return コース情報が紐付けられた生徒詳細リスト
+   */
+  public List<StudentDetail> getStudentDetailsByStudent(List<Student> students, List<Course> courses) {
 
-    //コンバート用（生徒情報とコース情報の紐づけ）リストのインスタンスを用意
+    // 生徒IDをキーにして、コース情報をグループ化
+    Map<String, List<Course>> courseMap = courses.stream()
+        .collect(Collectors.groupingBy(Course::getStudentInfoId));
+
     List<StudentDetail> studentDetails = new ArrayList<>();
 
-    //studentDetailsインスタンスに、生徒情報を代入する
-    for(Student student : students){
+    for (Student student : students) {
       StudentDetail studentDetail = new StudentDetail();
       studentDetail.setStudent(student);
 
-      //convertCoursesインスタンスに、生徒情報と一致するコース情報を代入する
-      List<Course> convertCourses = new ArrayList<>();
-      for (Course course : courses){
-        //「生徒情報」と「コース」の外部キーが一致したら
-        if(student.getId().equals(course.getStudentInfoId())){
-          convertCourses.add(course);
-        }
-      }
-      //生徒情報と、それに紐づくコース情報一覧をマージする
-      studentDetail.setCourses(convertCourses);
-      //コンバート用リストに、マージした生徒情報＋コースを追加する
+      // その生徒が受講しているコース情報を取得
+      List<Course> matchedCourses = courseMap.getOrDefault(student.getId(), Collections.emptyList());
+
+      studentDetail.setCourses(matchedCourses);
       studentDetails.add(studentDetail);
     }
-
     return studentDetails;
   }
+
+
+  /**
+   * フィルタリング済みのコース情報を起点にしたデータ結合を行う、コンバータークラスメソッド
+   * 概要：指定されたコース情報から関連する生徒を抽出し、コース情報を紐付けて返す
+   * @param allStudents 全生徒情報
+   * @param filteredCourses 絞り込み済みコース情報
+   * @return コース情報に紐づく生徒詳細リスト
+   */
+
+  public List<StudentDetail> getStudentDetailsByCourse(List<Student> allStudents, List<Course> filteredCourses) {
+
+      //指定されたコース情報を持つ生徒IDだけを呼び出して、変数にまとめる
+      Set<String> filteredStudentId = filteredCourses.stream()
+          .map(Course::getStudentInfoId)
+          .collect(Collectors.toSet());
+
+      //生徒IDをキーにして、コース情報をまとめる
+      Map<String, List<Course>> courseMap = filteredCourses.stream()
+          .collect(Collectors.groupingBy(Course::getStudentInfoId));
+
+      //全生徒情報から「コースに紐づく生徒情報」のみを抽出して変数にまとめる
+      List<Student> filteredStudents = allStudents.stream()
+          .filter(student -> filteredStudentId.contains(student.getId()))
+          .toList();
+
+      //生徒詳細情報を構築
+      return filteredStudents.stream()
+          .map(student -> {
+            StudentDetail studentDetail = new StudentDetail();
+            studentDetail.setStudent(student);
+            studentDetail.setCourses(courseMap.getOrDefault(student.getId(), Collections.emptyList()));
+            return studentDetail;
+          })
+          .collect(Collectors.toList());
+    }
+
+
+
 
 }
