@@ -30,7 +30,7 @@ public class StudentConverter {
 
     // 生徒IDをキーにして、コース情報をグループ化
     Map<String, List<Course>> courseMap = courses.stream()
-        .collect(Collectors.groupingBy(Course::getStudentInfoId));
+        .collect(Collectors.groupingBy(Course::getStudentId));
 
     List<StudentDetail> studentDetails = new ArrayList<>();
 
@@ -61,12 +61,12 @@ public class StudentConverter {
       List<Course> filteredCourses) {
 
     //指定されたコース情報を持つ生徒IDだけを呼び出して、変数にまとめる
-    Set<String> filteredStudentId = filteredCourses.stream().map(Course::getStudentInfoId)
+    Set<String> filteredStudentId = filteredCourses.stream().map(Course::getStudentId)
         .collect(Collectors.toSet());
 
     //生徒IDをキーにして、コース情報をまとめる
     Map<String, List<Course>> courseMap = filteredCourses.stream()
-        .collect(Collectors.groupingBy(Course::getStudentInfoId));
+        .collect(Collectors.groupingBy(Course::getStudentId));
 
     //全生徒情報から「コースに紐づく生徒情報」のみを抽出して変数にまとめる
     List<Student> filteredStudents = allStudents.stream()

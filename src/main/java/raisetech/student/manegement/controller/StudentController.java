@@ -37,13 +37,13 @@ public class StudentController {
    * @return 生徒情報一覧ページのビュー名（students.html）
    */
   @GetMapping("/students")
-  public String searchStudentsByAge(StudentsSortDto sortDto, Model model) {
+  public String searchStudentDetails(StudentsSortDto sortDto, Model model) {
 
     //任意の絞り込み検索された生徒の詳細情報を受け取る
-    List<StudentDetail> convertStudentAndCourses = studentDetailService.getStudentsDetails(sortDto);
+    List<StudentDetail> studentDetail = studentDetailService.getStudentsDetails(sortDto);
 
     //modelにコンバートしたデータをセットし、Thymeleafテンプレへ引き渡す
-    model.addAttribute("students", convertStudentAndCourses);
+    model.addAttribute("students", studentDetail);
 
     //表示するビュー名を返す
     return "students";

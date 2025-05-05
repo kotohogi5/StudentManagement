@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import raisetech.student.manegement.data.Course;
-import raisetech.student.manegement.domain.StudentDetail;
 import raisetech.student.manegement.repository.CourseRepository;
 
 /**
@@ -32,7 +31,7 @@ public class CourseService {
    *
    * @return 全コース情報のリスト
    */
-  public List<Course> searchAllCourses() {
+  public List<Course> allCourses() {
     return courseRepository.searchAllCourses();
   }
 

@@ -31,7 +31,7 @@ public class StudentService {
    *
    * @return 全生徒情報のリスト
    */
-  public List<Student> searchAllStudents() {
+  public List<Student> allStudents() {
     return studentRepository.searchAllStudents();
   }
 

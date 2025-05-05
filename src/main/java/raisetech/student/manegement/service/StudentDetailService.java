@@ -46,11 +46,11 @@ public class StudentDetailService {
 
     //生徒年齢の絞り込みの場合
     if (sortDto.getMinAge() != null && sortDto.getMaxAge() != null) {
-      return SearchStudentsDetailsByAge(sortDto);
+      return searchStudentsDetailsByAge(sortDto);
     }
     //コース情報の絞り込みの場合
     if (sortDto.getCourseName() != null && !sortDto.getCourseName().isEmpty()) {
-      return SearchStudentsDetailsByCourse(sortDto);
+      return searchStudentsDetailsByCourse(sortDto);
     }
     //絞り込みの指定がない場合
     return defaultStudentsDetails(sortDto);
@@ -66,10 +66,10 @@ public class StudentDetailService {
   public List<StudentDetail> defaultStudentsDetails(StudentsSortDto sortDto) {
 
     //生徒情報を格納するリスト
-    List<Student> ALLStudents = studentService.searchAllStudents();
+    List<Student> ALLStudents = studentService.allStudents();
 
     //コース情報を格納するリスト
-    List<Course> ALLCourses = courseService.searchAllCourses();
+    List<Course> ALLCourses = courseService.allCourses();
 
     //生徒情報とコース情報のコンバートを返す
     return converter.getStudentDetailsByStudent(ALLStudents, ALLCourses);
@@ -82,13 +82,13 @@ public class StudentDetailService {
    * @param sortDto 年齢条件
    * @return 条件に合致する生徒詳細情報リスト
    */
-  public List<StudentDetail> SearchStudentsDetailsByAge(StudentsSortDto sortDto) {
+  public List<StudentDetail> searchStudentsDetailsByAge(StudentsSortDto sortDto) {
 
     //条件に応じた生徒情報を格納するリスト
     List<Student> filterStudents = studentService.searchStudentsByAge(sortDto);
 
     //条件に応じたコース情報を格納するリスト
-    List<Course> AllCourses = courseService.searchAllCourses();
+    List<Course> AllCourses = courseService.allCourses();
 
     //生徒情報とコース情報を統合サービスへ渡し、コンバート処理を依頼
     return converter.getStudentDetailsByStudent(filterStudents, AllCourses);
@@ -101,10 +101,10 @@ public class StudentDetailService {
    * @param sortDto コース名条件
    * @return 条件に合致する生徒詳細情報リスト
    */
-  public List<StudentDetail> SearchStudentsDetailsByCourse(StudentsSortDto sortDto) {
+  public List<StudentDetail> searchStudentsDetailsByCourse(StudentsSortDto sortDto) {
 
     //全生徒情報を格納するリスト
-    List<Student> allStudents = studentService.searchAllStudents();
+    List<Student> allStudents = studentService.allStudents();
 
     //条件に応じたコース情報を格納するリスト
     List<Course> filterCourses = courseService.searchCourseBySubject(sortDto);
