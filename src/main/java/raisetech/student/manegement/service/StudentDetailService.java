@@ -1,5 +1,7 @@
 package raisetech.student.manegement.service;
 
+import io.micrometer.common.util.StringUtils;
+import java.util.Objects;
 import dto.StudentsSortDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,25 +47,24 @@ public class StudentDetailService {
   public List<StudentDetail> getStudentsDetails(StudentsSortDto sortDto) {
 
     //生徒年齢の絞り込みの場合
-    if (sortDto.getMinAge() != null && sortDto.getMaxAge() != null) {
+    if (Objects.nonNull(sortDto.getMinAge()) && Objects.nonNull(sortDto.getMaxAge())) {
       return searchStudentsDetailsByAge(sortDto);
     }
     //コース情報の絞り込みの場合
-    if (sortDto.getCourseName() != null && !sortDto.getCourseName().isEmpty()) {
+    if (StringUtils.isNotEmpty(sortDto.getCourseName())) {
       return searchStudentsDetailsByCourse(sortDto);
     }
     //絞り込みの指定がない場合
-    return defaultStudentsDetails(sortDto);
+    return defaultStudentsDetails();
   }
 
 
   /**
    * 検索条件なし（全件）の生徒詳細情報リストを返す、統合サービスメソッド
    *
-   * @param sortDto 検索条件
    * @return 検索条件先でコンバートされた全生徒詳細情報リスト
    */
-  public List<StudentDetail> defaultStudentsDetails(StudentsSortDto sortDto) {
+  public List<StudentDetail> defaultStudentsDetails() {
 
     //生徒情報を格納するリスト
     List<Student> ALLStudents = studentService.allStudents();
