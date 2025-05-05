@@ -16,8 +16,8 @@ public class StudentService {
   private final StudentRepository studentRepository;
 
   /**
-   * 初期化
-   * 概要：コンストラクタで生徒情報リポジトリを受け取る
+   * コンストラクタで生徒情報リポジトリを受け取るコンストラクタ
+   *
    * @param studentRepository 生徒情報リポジトリ
    */
   @Autowired
@@ -28,6 +28,7 @@ public class StudentService {
 
   /**
    * 全生徒情報を取得するサービスメソッド
+   *
    * @return 全生徒情報のリスト
    */
   public List<Student> searchAllStudents() {
@@ -37,10 +38,11 @@ public class StudentService {
 
   /**
    * 指定された年齢範囲で生徒情報を取得するサービスメソッド
+   *
    * @param sortDto 年齢範囲などの検索条件
    * @return 年齢範囲の条件に合致する生徒情報のリスト
    */
   public List<Student> searchStudentsByAge(StudentsSortDto sortDto) {
-      return studentRepository.searchStudentByAge(sortDto.getMinAge(),sortDto.getMaxAge());
+    return studentRepository.searchStudentByAge(sortDto.getMinAge(), sortDto.getMaxAge());
   }
 }

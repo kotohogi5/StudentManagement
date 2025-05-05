@@ -9,13 +9,13 @@ import raisetech.student.manegement.domain.StudentDetail;
 
 /**
  * コース情報に関するデータアクセスを提供するリポジトリインターフェース
- * 概要：students_coursesテーブルへのクエリを定義
  */
 @Mapper
 public interface CourseRepository {
 
   /**
    * すべてのコース情報を取得するリポジトリメソッド
+   *
    * @return 全コース情報のリスト
    */
   @Select("SELECT * FROM students_courses")
@@ -24,6 +24,7 @@ public interface CourseRepository {
 
   /**
    * 指定したコース名でコース情報を取得するリポジトリメソッド
+   *
    * @param courseName コース名
    * @return 指定されたコース名に該当する、コース情報のリスト
    */

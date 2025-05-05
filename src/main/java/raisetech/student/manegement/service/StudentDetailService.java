@@ -21,31 +21,31 @@ public class StudentDetailService {
   private final StudentConverter converter;
 
   /**
-   * 初期化
-   * 概要：コンストラクで依存サービスを受け取る
-   * @param service 生徒情報サービス
+   * 依存サービスを受け取るコンストラクタ
+   *
+   * @param service       生徒情報サービス
    * @param courseService コース情報サービス
-   * @param converter 生徒詳細情報コンバーター
+   * @param converter     生徒詳細情報コンバーター
    */
   @Autowired
   public StudentDetailService(
-      StudentService service,CourseService courseService,StudentConverter converter){
+      StudentService service, CourseService courseService, StudentConverter converter) {
     this.studentService = service;
     this.courseService = courseService;
     this.converter = converter;
-}
+  }
 
 
   /**
    * 検索条件に応じてフィルタリングされた生徒詳細情報リストを返す、統合サービスメソッド
-   * 概要：処理は、年齢やコース名などの条件で分岐/フィルタリングされて戻って来る
+   *
    * @param sortDto 検索条件
    * @return 生徒詳細情報リスト
    */
   public List<StudentDetail> getStudentsDetails(StudentsSortDto sortDto) {
 
     //生徒年齢の絞り込みの場合
-    if(sortDto.getMinAge() != null && sortDto.getMaxAge() != null){
+    if (sortDto.getMinAge() != null && sortDto.getMaxAge() != null) {
       return SearchStudentsDetailsByAge(sortDto);
     }
     //コース情報の絞り込みの場合
@@ -59,10 +59,11 @@ public class StudentDetailService {
 
   /**
    * 検索条件なし（全件）の生徒詳細情報リストを返す、統合サービスメソッド
+   *
    * @param sortDto 検索条件
    * @return 検索条件先でコンバートされた全生徒詳細情報リスト
    */
-  public List<StudentDetail> defaultStudentsDetails(StudentsSortDto sortDto){
+  public List<StudentDetail> defaultStudentsDetails(StudentsSortDto sortDto) {
 
     //生徒情報を格納するリスト
     List<Student> ALLStudents = studentService.searchAllStudents();
@@ -77,10 +78,11 @@ public class StudentDetailService {
 
   /**
    * 年齢条件で絞り込んだ生徒詳細情報リストを返す、統合サービスメソッド
+   *
    * @param sortDto 年齢条件
    * @return 条件に合致する生徒詳細情報リスト
    */
-  public List<StudentDetail> SearchStudentsDetailsByAge(StudentsSortDto sortDto){
+  public List<StudentDetail> SearchStudentsDetailsByAge(StudentsSortDto sortDto) {
 
     //条件に応じた生徒情報を格納するリスト
     List<Student> filterStudents = studentService.searchStudentsByAge(sortDto);
@@ -95,10 +97,11 @@ public class StudentDetailService {
 
   /**
    * コース名条件で絞り込んだ生徒詳細情報リストを返す、統合サービスメソッド
+   *
    * @param sortDto コース名条件
    * @return 条件に合致する生徒詳細情報リスト
    */
-  public List<StudentDetail> SearchStudentsDetailsByCourse(StudentsSortDto sortDto){
+  public List<StudentDetail> SearchStudentsDetailsByCourse(StudentsSortDto sortDto) {
 
     //全生徒情報を格納するリスト
     List<Student> allStudents = studentService.searchAllStudents();

@@ -13,11 +13,12 @@ import raisetech.student.manegement.repository.CourseRepository;
  */
 @Service
 public class CourseService {
+
   private final CourseRepository courseRepository;
 
   /**
-   * 初期化
-   * 概要：コンストラクでリポジトリを受け取る
+   * リポジトリを受け取るコンストラクタ
+   *
    * @param courseRepository コース情報リポジトリ
    */
   @Autowired
@@ -28,6 +29,7 @@ public class CourseService {
 
   /**
    * 全コース情報を取得するサービスソッド
+   *
    * @return 全コース情報のリスト
    */
   public List<Course> searchAllCourses() {
@@ -37,10 +39,11 @@ public class CourseService {
 
   /**
    * 指定されたコース名でコース情報を取得するサービスメソッド
+   *
    * @param sortDto コース名などの検索条件
    * @return 指定されたコース名に合致するコース情報のリスト
    */
-  public  List<Course> searchCourseBySubject(StudentsSortDto sortDto){
+  public List<Course> searchCourseBySubject(StudentsSortDto sortDto) {
     return courseRepository.searchCourseBySubject(sortDto.getCourseName());
   }
 
