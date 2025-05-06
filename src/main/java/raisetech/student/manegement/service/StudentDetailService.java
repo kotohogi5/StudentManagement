@@ -67,13 +67,13 @@ public class StudentDetailService {
   public List<StudentDetail> defaultStudentsDetails() {
 
     //生徒情報を格納するリスト
-    List<Student> ALLStudents = studentService.allStudents();
+    List<Student> allStudents = studentService.allStudents();
 
     //コース情報を格納するリスト
-    List<Course> ALLCourses = courseService.allCourses();
+    List<Course> allCourses = courseService.allCourses();
 
     //生徒情報とコース情報のコンバートを返す
-    return converter.getStudentDetailsByStudent(ALLStudents, ALLCourses);
+    return converter.getStudentDetailsByStudent(allStudents, allCourses);
   }
 
 
@@ -89,10 +89,10 @@ public class StudentDetailService {
     List<Student> filterStudents = studentService.searchStudentsByAge(sortDto);
 
     //条件に応じたコース情報を格納するリスト
-    List<Course> AllCourses = courseService.allCourses();
+    List<Course> allCourses = courseService.allCourses();
 
     //生徒情報とコース情報を統合サービスへ渡し、コンバート処理を依頼
-    return converter.getStudentDetailsByStudent(filterStudents, AllCourses);
+    return converter.getStudentDetailsByStudent(filterStudents, allCourses);
   }
 
 
