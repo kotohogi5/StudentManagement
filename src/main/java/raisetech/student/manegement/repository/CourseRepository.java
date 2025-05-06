@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import raisetech.student.manegement.data.Course;
-import raisetech.student.manegement.domain.StudentDetail;
 
 /**
  * コース情報に関するデータアクセスを提供するリポジトリインターフェース
@@ -19,7 +18,7 @@ public interface CourseRepository {
    * @return 全コース情報のリスト
    */
   @Select("SELECT * FROM students_courses")
-  List<Course> searchAllCourses();
+  List<Course> getAllCourses();
 
 
   /**

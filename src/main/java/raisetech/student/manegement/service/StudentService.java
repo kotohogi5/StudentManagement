@@ -31,8 +31,8 @@ public class StudentService {
    *
    * @return 全生徒情報のリスト
    */
-  public List<Student> allStudents() {
-    return studentRepository.searchAllStudents();
+  public List<Student> getAllStudents() {
+    return studentRepository.getAllStudents();
   }
 
 
@@ -43,6 +43,6 @@ public class StudentService {
    * @return 年齢範囲の条件に合致する生徒情報のリスト
    */
   public List<Student> searchStudentsByAge(StudentsSortDto sortDto) {
-    return studentRepository.searchStudentByAge(sortDto.getMinAge(), sortDto.getMaxAge());
+    return studentRepository.searchStudentsByAge(sortDto.getMinAge(), sortDto.getMaxAge());
   }
 }

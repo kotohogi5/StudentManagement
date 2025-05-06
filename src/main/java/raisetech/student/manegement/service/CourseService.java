@@ -31,8 +31,8 @@ public class CourseService {
    *
    * @return 全コース情報のリスト
    */
-  public List<Course> allCourses() {
-    return courseRepository.searchAllCourses();
+  public List<Course> getAllCourses() {
+    return courseRepository.getAllCourses();
   }
 
 

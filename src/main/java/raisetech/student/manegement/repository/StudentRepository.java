@@ -20,7 +20,7 @@ public interface StudentRepository {
    * @return 全生徒情報のリスト
    */
   @Select("SELECT * FROM students")
-  List<Student> searchAllStudents();
+  List<Student> getAllStudents();
 
 
   /**
@@ -31,7 +31,7 @@ public interface StudentRepository {
    * @return 指定年齢範囲に該当する生徒情報のリスト
    */
   @Select("SELECT * FROM students WHERE age BETWEEN #{minAge} AND #{maxAge}")
-  List<Student> searchStudentByAge(@Param("minAge") Integer minAge,
+  List<Student> searchStudentsByAge(@Param("minAge") Integer minAge,
       @Param("maxAge") Integer maxAge);
 
 
