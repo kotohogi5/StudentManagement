@@ -3,9 +3,8 @@ package raisetech.student.manegement.data;
 import lombok.Getter;
 import lombok.Setter;
 
-/*
-* 生徒情報を保持するクラス
-* 概要：DBに登録された、生徒情報一覧を保持
+/**
+ * 生徒情報を保持するエンティティクラス
  */
 
 @Getter

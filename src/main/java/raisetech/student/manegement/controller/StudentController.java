@@ -1,43 +1,51 @@
 package raisetech.student.manegement.controller;
 
+import dto.StudentsSortDto;
+import org.springframework.ui.Model;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import raisetech.student.manegement.controller.converter.StudentConverter;
-import raisetech.student.manegement.data.Course;
-import raisetech.student.manegement.data.Student;
 import raisetech.student.manegement.domain.StudentDetail;
-import raisetech.student.manegement.service.CourseService;
-import raisetech.student.manegement.service.StudentService;
+import raisetech.student.manegement.service.StudentDetailService;
 
-@RestController
+/**
+ * 生徒詳細情報（生徒情報＋コース情報）の検索と画面表示を担当するコントローラークラス
+ */
+
+@Controller
 public class StudentController {
 
-  private final StudentService studentService;
-  private final CourseService courseService;
-  private final StudentConverter converter;
+  private final StudentDetailService studentDetailService;
 
+  /**
+   * 統合サービス（生徒詳細情報サービス）を受け取るコンストラクタ
+   *
+   * @param studentDetailService 生徒詳細情報サービス（生徒情報＋受講コース情報）
+   */
   @Autowired
-  public StudentController(StudentService studentService,CourseService courseService, StudentConverter converter) {
-    this.studentService = studentService;
-    this.courseService = courseService;
-    this.converter = converter;
+  public StudentController(StudentDetailService studentDetailService) {
+    this.studentDetailService = studentDetailService;
   }
 
-  //生徒情報+受講コース情報を出力するようリクエスト/レスポンスする
+
+  /**
+   * リクエストに応じた生徒詳細情報（加工済み）を取得し、テンプレートへ渡すコントローラーメソッド
+   *
+   * @param sortDto 検索条件（年齢範囲・コース名など）
+   * @param model   Thymeleafに渡すモデル
+   * @return 生徒情報一覧ページのビュー名（students.html）
+   */
   @GetMapping("/students")
-  public List<StudentDetail> searchStudents(@RequestParam(name="minAge",required = false) Integer minAge,
-      @RequestParam(name="maxAge",required = false) Integer maxAge){
+  public String searchStudentDetails(StudentsSortDto sortDto, Model model) {
 
-    //条件に応じた生徒情報を格納するリスト
-    List<Student> students = studentService.searchStudentsByAge(minAge,maxAge);
-    //全コース情報を格納するリスト
-    List<Course> courses = courseService.searchAllCourses();
+    //任意の絞り込み検索された生徒の詳細情報を受け取る
+    List<StudentDetail> studentDetail = studentDetailService.getStudentsDetails(sortDto);
 
-    //生徒情報とコース情報のコンバートへ
-    return converter.getStudentDetails(students, courses);
+    //modelにコンバートしたデータをセットし、Thymeleafテンプレへ引き渡す
+    model.addAttribute("students", studentDetail);
+
+    //表示するビュー名を返す
+    return "students";
   }
-
 }
