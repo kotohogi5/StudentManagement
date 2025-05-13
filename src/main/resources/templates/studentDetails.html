@@ -37,11 +37,11 @@
   </thead>
   <tbody>
   <!--以下、生徒情報[生徒ID/フルネーム/ルビ/ニックネーム/email/地域/年齢/性別/補足]-->
-  <tr th:each="studentDetail : ${students}">
+  <tr th:each="studentDetail : ${studentDetails}">
     <td th:text="${studentDetail.student.id}"></td>
     <td th:text="${studentDetail.student.fullName}"></td>
     <td th:text="${studentDetail.student.rubyText}"></td>
-    <td th:text="${studentDetail.student.nickName}"></td>
+    <td th:text="${studentDetail.student.nickname}"></td>
     <td th:text="${studentDetail.student.email}"></td>
     <td th:text="${studentDetail.student.area}"></td>
     <td th:text="${studentDetail.student.age}"></td>
@@ -54,11 +54,13 @@
     </td>
     <td>
       <span th:each="course, stat : ${studentDetail.courses}"
-            th:text="${#dates.format(course.courseStartDate, 'yyyy-MM-dd hh:mm') + (!stat.last ? ',' : '')}"></span>
+            th:text="${#temporals.format(course.courseStartDate, 'yyyy/MM/dd') + (!stat.last ? ',' : '')}"></span>
     </td>
     <td>
-      <span th:each="course, stat : ${studentDetail.courses}"
-            th:text="${#dates.format(course.courseEndDate,'yyyy-MM-dd hh:mm') + (!stat.last ? ',' : '')}"></span>
+<span th:each="course, stat : ${studentDetail.courses}"
+      th:text="${course.courseEndDate != null} ? |${#temporals.format(course.courseEndDate,'yyyy/MM/dd')}${!stat.last ? ',' : ''}| : ''">
+
+</span>
     </td>
   </tr>
   </tbody>

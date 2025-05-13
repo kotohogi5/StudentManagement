@@ -7,16 +7,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
-import raisetech.student.manegement.data.Course;
-import raisetech.student.manegement.data.Student;
-import raisetech.student.manegement.domain.StudentDetail;
+import raisetech.student.manegement.entity.Course;
+import raisetech.student.manegement.entity.Student;
+import raisetech.student.manegement.dto.StudentDetailResponseDto;
 
 /**
- * 後処理(リクエスト内容に応じて渡されたデータの変換のみを行う)用のコンバータークラス
+ * 後処理用のResponse系コンバータークラス
  */
 
 @Component
-public class StudentConverter {
+public class StudentDetailOutputConverter {
 
   /**
    * フィルタリング済み生徒情報を起点にしたデータ結合を行う、コンバータークラスメソッド
@@ -25,17 +25,17 @@ public class StudentConverter {
    * @param courses  全コース情報
    * @return コース情報が紐付けられた生徒詳細リスト
    */
-  public List<StudentDetail> getStudentDetailsByStudent(List<Student> students,
+  public List<StudentDetailResponseDto> getStudentDetailsByStudent(List<Student> students,
       List<Course> courses) {
 
     // 生徒IDをキーにして、コース情報をグループ化
-    Map<String, List<Course>> courseMap = courses.stream()
+    Map<Integer, List<Course>> courseMap = courses.stream()
         .collect(Collectors.groupingBy(Course::getStudentId));
 
-    List<StudentDetail> studentDetails = new ArrayList<>();
+    List<StudentDetailResponseDto> studentDetails = new ArrayList<>();
 
     for (Student student : students) {
-      StudentDetail studentDetail = new StudentDetail();
+      StudentDetailResponseDto studentDetail = new StudentDetailResponseDto();
       studentDetail.setStudent(student);
 
       // その生徒が受講しているコース情報を取得
@@ -57,15 +57,15 @@ public class StudentConverter {
    * @return コース情報に紐づく生徒詳細リスト
    */
 
-  public List<StudentDetail> getStudentDetailsByCourse(List<Student> allStudents,
+  public List<StudentDetailResponseDto> getStudentDetailsByCourse(List<Student> allStudents,
       List<Course> filteredCourses) {
 
     //指定されたコース情報を持つ生徒IDだけを呼び出して、変数にまとめる
-    Set<String> filteredStudentId = filteredCourses.stream().map(Course::getStudentId)
+    Set<Integer> filteredStudentId = filteredCourses.stream().map(Course::getStudentId)
         .collect(Collectors.toSet());
 
     //生徒IDをキーにして、コース情報をまとめる
-    Map<String, List<Course>> courseMap = filteredCourses.stream()
+    Map<Integer, List<Course>> courseMap = filteredCourses.stream()
         .collect(Collectors.groupingBy(Course::getStudentId));
 
     //全生徒情報から「コースに紐づく生徒情報」のみを抽出して変数にまとめる
@@ -74,7 +74,7 @@ public class StudentConverter {
 
     //生徒詳細情報を構築
     return filteredStudents.stream().map(student -> {
-      StudentDetail studentDetail = new StudentDetail();
+      StudentDetailResponseDto studentDetail = new StudentDetailResponseDto();
       studentDetail.setStudent(student);
       studentDetail.setCourses(courseMap.getOrDefault(student.getId(), Collections.emptyList()));
       return studentDetail;

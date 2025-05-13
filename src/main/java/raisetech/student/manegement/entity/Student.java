@@ -1,4 +1,4 @@
-package raisetech.student.manegement.data;
+package raisetech.student.manegement.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,13 +11,13 @@ import lombok.Setter;
 @Setter
 public class Student {
 
-  private String id;
+  private int id;
   private String fullName;
   private String rubyText;
-  private String nickName;
+  private String nickname;
   private String email;
   private String area;
-  private int age;
+  private Integer age;
   private String gender;
   private String remark; //備考欄
   private boolean isDeleted; //自動的にfalse(0)がマッピング

@@ -1,10 +1,10 @@
 package raisetech.student.manegement.service;
 
-import dto.StudentsSortDto;
+import raisetech.student.manegement.dto.StudentsSortDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import raisetech.student.manegement.data.Course;
+import raisetech.student.manegement.entity.Course;
 import raisetech.student.manegement.repository.CourseRepository;
 
 /**
@@ -44,6 +44,18 @@ public class CourseService {
    */
   public List<Course> searchCourseBySubject(StudentsSortDto sortDto) {
     return courseRepository.searchCourseBySubject(sortDto.getCourseName());
+  }
+
+
+  /*
+-------------------------------------
+CREATE系
+-------------------------------------
+ */
+
+  /// 新規登録された生徒の受講コースをあわせて登録するサービスメソッド
+  public void registerCourse(int studentId, Course course) {
+    courseRepository.registerCourse(studentId, course.getCourseName(), course.getCourseStartDate());
   }
 
 }

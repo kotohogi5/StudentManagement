@@ -1,4 +1,4 @@
-package dto;
+package raisetech.student.manegement.dto;
 
 import lombok.Getter;
 import lombok.Setter;
