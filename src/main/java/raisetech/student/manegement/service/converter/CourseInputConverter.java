@@ -12,10 +12,10 @@ public class CourseInputConverter {
 
   //DTOからSQL用のcourseエンティティにコンバートする
   public Course convertDtoToCourse(StudentDetailRegisterDto dto) {
-    Course course = new Course();
-    course.setCourseName(dto.getCourseName());
-    course.setCourseStartDate(dto.getCourseStartDate());
-    return course;
+    return new Course(
+        dto.getCourseName(),
+        dto.getCourseStartDate()
+    );
   }
 
 }

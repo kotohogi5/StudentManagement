@@ -12,16 +12,16 @@ public class StudentInputConverter {
 
   //DTOからSQL用のStudentエンティティにコンバートする
   public Student convertDtoToStudent(StudentDetailRegisterDto dto) {
-    Student student = new Student();
-    student.setFullName(dto.getFullName());
-    student.setRubyText(dto.getRubyText());
-    student.setNickname(dto.getNickname());
-    student.setEmail(dto.getEmail());
-    student.setArea(dto.getArea());
-    student.setAge(dto.getAge());
-    student.setGender(dto.getGender());
-    student.setRemark(dto.getRemark());
-    return student;
+    return new Student(
+        dto.getFullName(),
+        dto.getRubyText(),
+        dto.getNickname(),
+        dto.getEmail(),
+        dto.getArea(),
+        dto.getAge(),
+        dto.getGender(),
+        dto.getRemark()
+    );
   }
 
 }
