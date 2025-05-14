@@ -8,7 +8,6 @@ import lombok.Setter;
 /**
  * 新規登録のためのinput用（Request系）DTOクラス
  **/
-
 @Getter
 @Setter
 public class StudentDetailRegisterDto {

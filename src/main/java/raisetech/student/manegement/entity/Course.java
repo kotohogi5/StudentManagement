@@ -7,7 +7,6 @@ import lombok.Setter;
 /**
  * 生徒が受講中のコース情報を保持するエンティティクラス
  */
-
 @Getter
 @Setter
 public class Course {

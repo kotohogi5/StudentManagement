@@ -53,7 +53,12 @@ CREATE系
 -------------------------------------
  */
 
-  /// 新規登録された生徒の受講コースをあわせて登録するサービスメソッド
+  /**
+   * 新規登録された生徒の受講コースをあわせて登録するサービスメソッド
+   *
+   * @param studentId 登録コースに紐づく生徒ID
+   * @param course    　登録コース情報
+   */
   public void registerCourse(int studentId, Course course) {
     courseRepository.registerCourse(studentId, course.getCourseName(), course.getCourseStartDate());
   }

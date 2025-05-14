@@ -6,7 +6,6 @@ import lombok.Setter;
 /**
  * 生徒情報を保持するエンティティクラス
  */
-
 @Getter
 @Setter
 public class Student {

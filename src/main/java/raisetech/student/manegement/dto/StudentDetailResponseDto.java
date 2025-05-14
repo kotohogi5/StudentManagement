@@ -9,8 +9,6 @@ import raisetech.student.manegement.entity.Student;
 /**
  * 生徒情報＋コース情報「＝生徒詳細情報」をresponseするための、出力用DTOクラス
  */
-
-
 @Getter
 @Setter
 public class StudentDetailResponseDto {

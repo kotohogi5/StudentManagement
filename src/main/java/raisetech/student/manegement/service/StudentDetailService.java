@@ -142,6 +142,8 @@ CREATE系
 
   /**
    * 生徒情報とコース情報を同時登録する統合処理用サービスメソッド
+   *
+   * @param dto 登録したい生徒情報とコース情報を格納
    */
   public void registerStudentDetails(StudentDetailRegisterDto dto) {
 

@@ -60,7 +60,11 @@ CREATE系
 -------------------------------------
  */
 
-  /// 生徒情報を新規登録するサービスメソッド
+  /**
+   * 生徒情報を新規登録するサービスメソッド
+   *
+   * @param student 生徒情報
+   */
   public void registerStudent(Student student) {
     studentRepository.registerStudent(student);
   }

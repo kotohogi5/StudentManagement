@@ -14,7 +14,6 @@ import raisetech.student.manegement.dto.StudentDetailResponseDto;
 /**
  * 後処理用のResponse系コンバータークラス
  */
-
 @Component
 public class StudentDetailOutputConverter {
 

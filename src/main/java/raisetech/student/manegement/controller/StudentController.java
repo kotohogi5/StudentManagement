@@ -16,7 +16,6 @@ import raisetech.student.manegement.service.StudentDetailService;
 /**
  * 生徒詳細情報（生徒情報＋コース情報）の検索と画面表示を担当するコントローラークラス
  */
-
 @Controller
 public class StudentController {
 
@@ -71,7 +70,6 @@ CREATE系
    * @param model 登録フォームにバインドするためのModelオブジェクト
    * @return 生徒登録画面のビュー名（"registerStudent"）
    */
-
   @GetMapping("/newStudent")
   public String newStudent(Model model) {
     model.addAttribute("studentDetailRegisterDto", new StudentDetailRegisterDto());
@@ -86,7 +84,6 @@ CREATE系
    * @param result バリデーション結果を保持するBindingResult
    * @return エラー時は生徒登録画面のビュー名（"registerStudent"）、正常時は生徒一覧画面へのリダイレクト
    */
-
   @PostMapping("/registerStudent")
   public String registerStudent(@ModelAttribute StudentDetailRegisterDto dto,
       BindingResult result) {
