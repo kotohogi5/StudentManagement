@@ -64,6 +64,7 @@ READ系
    * @param sortDto 検索条件
    * @return 生徒詳細情報リスト
    */
+  @Transactional(readOnly = true)
   public List<StudentDetailResponseDto> getStudentsDetails(StudentsSortDto sortDto) {
 
     //生徒年齢の絞り込みの場合
@@ -84,7 +85,7 @@ READ系
    *
    * @return 検索条件先でコンバートされた全生徒詳細情報リスト
    */
-  public List<StudentDetailResponseDto> defaultStudentsDetails() {
+  private List<StudentDetailResponseDto> defaultStudentsDetails() {
 
     //生徒情報を格納するリスト
     List<Student> allStudents = studentService.getAllStudents();
@@ -103,7 +104,7 @@ READ系
    * @param sortDto 年齢条件
    * @return 条件に合致する生徒詳細情報リスト
    */
-  public List<StudentDetailResponseDto> searchStudentsDetailsByAge(StudentsSortDto sortDto) {
+  private List<StudentDetailResponseDto> searchStudentsDetailsByAge(StudentsSortDto sortDto) {
 
     //条件に応じた生徒情報を格納するリスト
     List<Student> filterStudents = studentService.searchStudentsByAge(sortDto);
@@ -122,7 +123,7 @@ READ系
    * @param sortDto コース名条件
    * @return 条件に合致する生徒詳細情報リスト
    */
-  public List<StudentDetailResponseDto> searchStudentsDetailsByCourse(StudentsSortDto sortDto) {
+  private List<StudentDetailResponseDto> searchStudentsDetailsByCourse(StudentsSortDto sortDto) {
 
     //全生徒情報を格納するリスト
     List<Student> allStudents = studentService.getAllStudents();

@@ -1,5 +1,6 @@
 package raisetech.student.manegement.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import raisetech.student.manegement.dto.StudentsSortDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import raisetech.student.manegement.repository.CourseRepository;
  * コース情報に関するビジネスロジックを提供するサービスクラス
  */
 @Service
+@Transactional(readOnly = true)
 public class CourseService {
 
   private final CourseRepository courseRepository;
@@ -59,6 +61,7 @@ CREATE系
    * @param studentId 登録コースに紐づく生徒ID
    * @param course    　登録コース情報
    */
+  @Transactional
   public void registerCourse(int studentId, Course course) {
     courseRepository.registerCourse(studentId, course.getCourseName(), course.getCourseStartDate());
   }

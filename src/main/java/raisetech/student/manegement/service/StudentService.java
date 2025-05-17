@@ -1,5 +1,6 @@
 package raisetech.student.manegement.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import raisetech.student.manegement.dto.StudentsSortDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import raisetech.student.manegement.repository.StudentRepository;
  * 生徒情報に関するビジネスロジックを提供するサービスクラス
  */
 @Service
+@Transactional(readOnly = true)
 public class StudentService {
 
   private final StudentRepository studentRepository;
@@ -65,6 +67,7 @@ CREATE系
    *
    * @param student 生徒情報
    */
+  @Transactional
   public void registerStudent(Student student) {
     studentRepository.registerStudent(student);
   }
